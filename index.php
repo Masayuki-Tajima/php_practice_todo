@@ -1,16 +1,16 @@
 <?php
 try {
-    //データベースに接続する
-    $db = "mysql:host=localhost;dbname=php_practice_todo";
-    $username = "root";
-    $password = "sjsm1326";
-
-    $pdo = new PDO($db, $username, $password);
+    include_once("./app/database/connect.php");
 
     // フォームから送信された内容を取得
-    $stmt = $pdo->prepare("SELECT * FROM tasks");
+    $task_array = array();
+
+    $sql = "SELECT * FROM tasks";
+    $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    
+    $task_array = $stmt;
+
+    // var_dump($task_array->fetchAll());
 } catch (PDOException $e) {
     echo "データベースに接続できませんでした。" . $e->getMessage();
 }
@@ -57,12 +57,14 @@ try {
                         <th>日付</th>
                         <th>ゴミ箱へ</th>
                     </tr>
-                    <tr>
-                        <td>done</td>
-                        <td>朝食</td>
-                        <td>2024-09-01 12:00</td>
-                        <td>ボタン</td>
-                    </tr>
+                    <?php foreach ($task_array as $task): ?>
+                        <tr>
+                            <td><?= $task["is_done"] ?></td>
+                            <td><?= $task["task_name"] ?></td>
+                            <td><?= $task["due_date"] ?></td>
+                            <td>ボタン</td>
+                        </tr>
+                    <?php endforeach ?>
                 </table>
             </div>
         </div>

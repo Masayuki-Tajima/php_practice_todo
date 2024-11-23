@@ -1,15 +1,39 @@
+<?php
+try {
+    //データベースに接続する
+    $db = "mysql:host=localhost;dbname=php_practice_todo";
+    $username = "root";
+    $password = "sjsm1326";
+
+    $pdo = new PDO($db, $username, $password);
+
+    // フォームから送信された内容を取得
+    $stmt = $pdo->prepare("SELECT * FROM tasks");
+    $stmt->execute();
+    
+} catch (PDOException $e) {
+    echo "データベースに接続できませんでした。" . $e->getMessage();
+}
+
+// if (isset($_POST["add"])) {
+//     $task_name = $_POST["task_name"];
+//     echo $task_name;
+// }
+?>
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>TODOリスト</title>
 </head>
+
 <body>
     <header>
         <div class="header_left">
-          <h1>TODOリスト</h1>  
+            <h1>TODOリスト</h1>
         </div>
     </header>
 
@@ -20,7 +44,7 @@
                 <h2>New Task</h2>
                 <form action="" method="post">
                     <input type="text" name="task_name">
-                    <input type="submit" value="追加" class="button">
+                    <input type="submit" name="add" value="追加" class="button">
                 </form>
             </div>
 
@@ -43,6 +67,6 @@
             </div>
         </div>
     </main>
-    
 </body>
+
 </html>

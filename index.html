@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TODOリスト</title>
 </head>
 <body>
+    <header>
+        <div class="header_left">
+          <h1>TODOリスト</h1>  
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- タスクを追加する欄 -->
+            <div class="task_add_area">
+                <h2>New Task</h2>
+                <form action="" method="post">
+                    <input type="text" name="task_name">
+                    <input type="submit" value="追加">
+                </form>
+            </div>
+
+            <!-- タスク一覧を表示するエリア -->
+            <div class="task_list_area">
+                <table>
+                    <tr>
+                        <th>is_done</th>
+                        <th>タスク</th>
+                        <th>日付</th>
+                        <th>ゴミ箱へ</th>
+                    </tr>
+                    <tr>
+                        <td>done</td>
+                        <td>朝食</td>
+                        <td>2024-09-01 12:00</td>
+                        <td>ボタン</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
     
 </body>
 </html>

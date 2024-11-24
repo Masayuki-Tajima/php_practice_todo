@@ -67,7 +67,12 @@ try {
                         <tr>
                             <td><?= $task["task_name"] ?></td>
                             <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
-                            <td>ボタン</td>
+                            <td>
+                                <form action="">
+                                    <input type="submit" value="編集">
+                                    <input type="hidden" value="<?= $task['id'] ?>">
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </table>

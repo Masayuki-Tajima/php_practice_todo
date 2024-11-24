@@ -47,7 +47,6 @@ try {
         <div class="container">
             <!-- タスクを追加する欄 -->
             <div class="task_add_area">
-                <h2>New Task</h2>
                 <form action="" method="post">
                     <input type="text" name="task_name">
                     <input type="datetime-local" name="due_date">
@@ -57,6 +56,7 @@ try {
 
             <!-- タスク一覧を表示するエリア -->
             <div class="task_list_area">
+                <h2>タスク一覧</h2>
                 <table>
                     <tr>
                         <th>タスク</th>
@@ -68,9 +68,9 @@ try {
                             <td><?= $task["task_name"] ?></td>
                             <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
                             <td>
-                                <form action="">
+                                <form action="./app/pages/edit.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
                                     <input type="submit" value="編集">
-                                    <input type="hidden" value="<?= $task['id'] ?>">
                                 </form>
                             </td>
                         </tr>

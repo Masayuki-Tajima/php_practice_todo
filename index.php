@@ -24,6 +24,7 @@ session_start();
     <!-- エラーメッセージがあれば表示 -->
     <?php include("./parts/validation.php") ?>
 
+    <!-- エラーメッセージのセッションを削除 -->
     <?php unset($_SESSION["error_message"]) ?>
 
     <main>

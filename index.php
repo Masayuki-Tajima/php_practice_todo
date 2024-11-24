@@ -61,7 +61,8 @@ try {
                     <tr>
                         <th>タスク</th>
                         <th>期限</th>
-                        <th>ゴミ箱へ</th>
+                        <th>編集</th>
+                        <th>完了</th>
                     </tr>
                     <?php foreach ($task_array as $task): ?>
                         <tr>
@@ -71,6 +72,12 @@ try {
                                 <form action="./app/pages/edit.php" method="post">
                                     <input type="hidden" name="id" value="<?= $task['id'] ?>">
                                     <input type="submit" value="編集">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="./app/functions/delete.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                                    <input type="submit" name="delete" value="完了!">
                                 </form>
                             </td>
                         </tr>

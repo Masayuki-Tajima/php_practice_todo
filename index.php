@@ -3,7 +3,6 @@
 include_once("./app/database/connect.php");
 
 include("./app/functions/task_get.php");
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -19,13 +18,16 @@ include("./app/functions/task_get.php");
     <!-- ヘッダーを読み込み -->
     <?php include("./parts/header.php") ?>
 
+    <!-- エラーメッセージがあれば表示 -->
+    <?php include("./parts/validation.php") ?>
+
     <main>
         <div class="container">
             <!-- タスクを追加する欄 -->
             <div class="task_add_area">
                 <form action="./app/functions/create.php" method="post">
-                    <input type="text" name="task_name" required>
-                    <input type="datetime-local" name="due_date" required>
+                    <input type="text" name="task_name">
+                    <input type="datetime-local" name="due_date">
                     <input type="submit" name="add" value="追加" class="button">
                 </form>
             </div>

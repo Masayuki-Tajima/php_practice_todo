@@ -38,10 +38,12 @@ $task_array = $stmt;
                         <tr>
                             <td><?= $task["task_name"] ?></td>
                             <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
-                            <form action="" method="post">
-                                <input type="hidden" name="id" value="<?= $task["id"] ?>">
-                                <input type="submit" name="completelyDelete" value="完全に削除">
-                            </form>
+                            <td>
+                                <form action="../functions/completelyDelete.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $task["id"] ?>">
+                                    <input type="submit" name="completelyDelete" value="完全に削除">
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </table>

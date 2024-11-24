@@ -44,6 +44,7 @@ try {
                 <h2>New Task</h2>
                 <form action="" method="post">
                     <input type="text" name="task_name">
+                    <input type="datetime-local" name="due_date">
                     <input type="submit" name="add" value="追加" class="button">
                 </form>
             </div>

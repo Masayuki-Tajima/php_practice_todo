@@ -26,13 +26,22 @@ if (isset($_POST["add"])) {
     }
 
     if (empty($_SESSION["error_message"])) {
-        $sql = "INSERT INTO tasks (task_name, due_date, is_done) VALUES(:task_name, :due_date, :is_done)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':task_name', $task_name);
-        $stmt->bindParam(':due_date', $due_date);
-        $stmt->bindParam(':is_done', $is_done);
+        //トランザクション開始
+        $pdo->beginTransaction();
 
-        $stmt->execute();
+        try {
+            $sql = "INSERT INTO tasks (task_name, due_date, is_done) VALUES(:task_name, :due_date, :is_done)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':task_name', $task_name);
+            $stmt->bindParam(':due_date', $due_date);
+            $stmt->bindParam(':is_done', $is_done);
+
+            $stmt->execute();
+
+            $pdo->commit();
+        } catch (Exception $error) {
+            $pdo->rollBack();
+        }
     }
 
     //index.htmlへ遷移

@@ -1,21 +1,16 @@
 <?php
-try {
-    //データベースと接続
-    include_once("../database/connect.php");
+//データベースと接続
+include_once("../database/connect.php");
 
-    //編集するタスクをデータベースから取得する
-    $task_array = array();
+//編集するタスクをデータベースから取得する
+$task_array = array();
 
-    $sql = "SELECT * FROM tasks WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":id", $_POST["id"]);
+$sql = "SELECT * FROM tasks WHERE id = :id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(":id", $_POST["id"]);
 
-    $stmt->execute();
-    $task_array = $stmt;
-} catch (PDOException $e) {
-    echo "データベースに接続できませんでした。" . $e->getMessage();
-}
-
+$stmt->execute();
+$task_array = $stmt;
 ?>
 <!DOCTYPE html>
 <html lang="ja">

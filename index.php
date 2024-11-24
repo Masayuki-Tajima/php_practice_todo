@@ -72,6 +72,9 @@ try {
                     <?php endforeach ?>
                 </table>
             </div>
+
+            <!-- ゴミ箱へ遷移するボタン -->
+            <button><a href="./app/pages/trash.php">ゴミ箱へ</a></button>
         </div>
     </main>
 </body>

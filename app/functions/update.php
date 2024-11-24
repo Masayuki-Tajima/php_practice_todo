@@ -24,14 +24,23 @@ if (isset($_POST["edit"])) {
     }
 
     if (empty($_SESSION["error_message"])) {
-        $sql = "UPDATE tasks SET task_name = :task_name, due_date = :due_date WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
+        //トランザクション開始
+        $pdo->beginTransaction();
 
-        $stmt->bindParam(":task_name", $_POST["task_name"]);
-        $stmt->bindParam(":due_date", $_POST["due_date"]);
-        $stmt->bindParam(":id", $_POST["id"]);
+        try {
+            $sql = "UPDATE tasks SET task_name = :task_name, due_date = :due_date WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
 
-        $stmt->execute();
+            $stmt->bindParam(":task_name", $_POST["task_name"]);
+            $stmt->bindParam(":due_date", $_POST["due_date"]);
+            $stmt->bindParam(":id", $_POST["id"]);
+
+            $stmt->execute();
+
+            $pdo->commit();
+        } catch (Exception $error) {
+            $pdo->rollBack();
+        }
     }
 
     //index.htmlへ遷移

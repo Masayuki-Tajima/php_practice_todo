@@ -61,14 +61,12 @@ try {
                     <tr>
                         <th>タスク</th>
                         <th>日付</th>
-                        <th>is_done</th>
                         <th>ゴミ箱へ</th>
                     </tr>
                     <?php foreach ($task_array as $task): ?>
                         <tr>
                             <td><?= $task["task_name"] ?></td>
                             <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
-                            <td><?= $task["is_done"] ?></td>
                             <td>ボタン</td>
                         </tr>
                     <?php endforeach ?>

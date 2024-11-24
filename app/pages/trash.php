@@ -15,6 +15,16 @@ $task_array = $stmt;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        function check() {
+            if (confirm('完全に削除しますか？')) {
+                return true;
+            } else {
+                alert('キャンセルされました。');
+                return false;
+            }
+        }
+    </script>
     <title>ゴミ箱</title>
 </head>
 
@@ -39,7 +49,7 @@ $task_array = $stmt;
                             <td><?= $task["task_name"] ?></td>
                             <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
                             <td>
-                                <form action="../functions/completelyDelete.php" method="post">
+                                <form action="../functions/completelyDelete.php" method="post" onsubmit="return check()">
                                     <input type="hidden" name="id" value="<?= $task["id"] ?>">
                                     <input type="submit" name="completelyDelete" value="完全に削除">
                                 </form>

@@ -18,6 +18,16 @@ $task_array = $stmt;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        function check() {
+            if (confirm('更新しますか？')) {
+                return true;
+            } else {
+                alert('キャンセルされました。');
+                return false;
+            }
+        }
+    </script>
     <title>タスク編集</title>
 </head>
 
@@ -27,7 +37,7 @@ $task_array = $stmt;
 
     <main>
         <div class="container">
-            <form action="../functions/update.php" method="post">
+            <form action="../functions/update.php" method="post" onsubmit="return check()">
                 <?php foreach ($task_array as $task): ?>
                     <label for="task_name">タスク</label>
                     <input type="text" name="task_name" value="<?= $task["task_name"] ?>">

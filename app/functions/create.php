@@ -11,14 +11,15 @@ if (isset($_POST["add"])) {
     $due_date = $_POST["due_date"];
     $is_done = 0;
 
-    // XSS対策
-    $task_name = htmlspecialchars($task_name, ENT_QUOTES, "UTF-8");
 
     $error_message = array();
 
     //バリデーションチェック
     if (empty($task_name)) {
         $_SESSION["error_message"]["task_name"] = "タスク名を入力してください。";
+    } else {
+        // XSS対策
+        $task_name = htmlspecialchars($task_name, ENT_QUOTES, "UTF-8");
     }
 
     if (empty($due_date)) {

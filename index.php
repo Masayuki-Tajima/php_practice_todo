@@ -24,8 +24,8 @@ include("./app/functions/task_get.php");
             <!-- タスクを追加する欄 -->
             <div class="task_add_area">
                 <form action="./app/functions/create.php" method="post">
-                    <input type="text" name="task_name">
-                    <input type="datetime-local" name="due_date">
+                    <input type="text" name="task_name" required>
+                    <input type="datetime-local" name="due_date" required>
                     <input type="submit" name="add" value="追加" class="button">
                 </form>
             </div>

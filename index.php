@@ -2,23 +2,32 @@
 try {
     include_once("./app/database/connect.php");
 
-    // フォームから送信された内容を取得
     $task_array = array();
 
+    //タスクを新規追加
+    if (isset($_POST["add"])) {
+        $task_name = $_POST["task_name"];
+        $due_date = $_POST["due_date"];
+        $is_done = 0;
+
+        $sql = "INSERT INTO tasks (task_name, due_date, is_done) VALUES(:task_name, :due_date, :is_done)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':task_name', $task_name);
+        $stmt->bindParam(':due_date', $due_date);
+        $stmt->bindParam(':is_done', $is_done);
+
+        $stmt->execute();
+    }
+
+    // フォームから送信された内容を取得
     $sql = "SELECT * FROM tasks";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $task_array = $stmt;
-
-    // var_dump($task_array->fetchAll());
 } catch (PDOException $e) {
     echo "データベースに接続できませんでした。" . $e->getMessage();
 }
 
-// if (isset($_POST["add"])) {
-//     $task_name = $_POST["task_name"];
-//     echo $task_name;
-// }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -50,16 +59,16 @@ try {
             <div class="task_list_area">
                 <table>
                     <tr>
-                        <th>is_done</th>
                         <th>タスク</th>
                         <th>日付</th>
+                        <th>is_done</th>
                         <th>ゴミ箱へ</th>
                     </tr>
                     <?php foreach ($task_array as $task): ?>
                         <tr>
-                            <td><?= $task["is_done"] ?></td>
                             <td><?= $task["task_name"] ?></td>
-                            <td><?= $task["due_date"] ?></td>
+                            <td><?= date("Y-m-d H:i", intval($task["due_date"])) ?></td>
+                            <td><?= $task["is_done"] ?></td>
                             <td>ボタン</td>
                         </tr>
                     <?php endforeach ?>

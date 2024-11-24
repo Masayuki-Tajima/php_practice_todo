@@ -18,6 +18,17 @@ session_start();
 </head>
 
 <body>
+    <script type="text/javascript">
+        function check() {
+            if (confirm('完了済みにしますか？')) {
+                return true;
+            } else {
+                alert('キャンセルされました。');
+                return false;
+            }
+        }
+    </script>
+
     <!-- ヘッダーを読み込み -->
     <?php include("./parts/header.php") ?>
 
@@ -59,7 +70,7 @@ session_start();
                                 </form>
                             </td>
                             <td>
-                                <form action="./app/functions/delete.php" method="post">
+                                <form action="./app/functions/delete.php" method="post" onsubmit="return check()">
                                     <input type="hidden" name="id" value="<?= $task['id'] ?>">
                                     <input type="submit" name="delete" value="完了!">
                                 </form>

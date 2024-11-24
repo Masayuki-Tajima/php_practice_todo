@@ -19,8 +19,8 @@ try {
         $stmt->execute();
     }
 
-    // タスク一覧を取得
-    $sql = "SELECT * FROM tasks";
+    // 未完了のタスク一覧を取得
+    $sql = "SELECT * FROM tasks WHERE is_done = 0";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $task_array = $stmt;

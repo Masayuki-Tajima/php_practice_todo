@@ -1,21 +1,16 @@
 <?php
-try {
-    //データベースと接続
-    include_once("../database/connect.php");
+//データベースと接続
+include_once("../database/connect.php");
 
-    //編集するタスクをデータベースから取得する
-    $task_array = array();
+//編集するタスクをデータベースから取得する
+$task_array = array();
 
-    $sql = "SELECT * FROM tasks WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":id", $_POST["id"]);
+$sql = "SELECT * FROM tasks WHERE id = :id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(":id", $_POST["id"]);
 
-    $stmt->execute();
-    $task_array = $stmt;
-} catch (PDOException $e) {
-    echo "データベースに接続できませんでした。" . $e->getMessage();
-}
-
+$stmt->execute();
+$task_array = $stmt;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,6 +18,16 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        function check() {
+            if (confirm('更新しますか？')) {
+                return true;
+            } else {
+                alert('キャンセルされました。');
+                return false;
+            }
+        }
+    </script>
     <title>タスク編集</title>
 </head>
 
@@ -32,7 +37,7 @@ try {
 
     <main>
         <div class="container">
-            <form action="../functions/update.php" method="post">
+            <form action="../functions/update.php" method="post" onsubmit="return check()">
                 <?php foreach ($task_array as $task): ?>
                     <label for="task_name">タスク</label>
                     <input type="text" name="task_name" value="<?= $task["task_name"] ?>">

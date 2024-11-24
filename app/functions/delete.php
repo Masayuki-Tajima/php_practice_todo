@@ -1,10 +1,13 @@
 <?php
-try {
-    // データベースと接続
-    include_once("../database/connect.php");
+// データベースと接続
+include_once("../database/connect.php");
 
-    //データベースのis_doneを更新する
-    if (isset($_POST["delete"])) {
+//データベースのis_doneを更新する
+if (isset($_POST["delete"])) {
+    //トランザクション開始
+    $pdo->beginTransaction();
+
+    try {
         $sql = "UPDATE tasks SET is_done = 1 WHERE id = :id";
         $stmt = $pdo->prepare($sql);
 
@@ -12,10 +15,12 @@ try {
 
         $stmt->execute();
 
-        //index.htmlへ遷移
-        header("Location: http://localhost:8080/php_practice_todo/index.php");
-        exit();
+        $pdo->commit();
+    } catch (Exception $error) {
+        $pdo->rollBack();
     }
-} catch (PDOException $e) {
-    echo "データベースに接続できませんでした。" . $e->getMessage();
+
+    //index.htmlへ遷移
+    header("Location: http://localhost:8080/php_practice_todo/index.php");
+    exit();
 }

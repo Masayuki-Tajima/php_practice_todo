@@ -60,7 +60,7 @@ try {
                 <table>
                     <tr>
                         <th>タスク</th>
-                        <th>日付</th>
+                        <th>期限</th>
                         <th>ゴミ箱へ</th>
                     </tr>
                     <?php foreach ($task_array as $task): ?>

@@ -2,6 +2,9 @@
 // データベースと接続
 include_once("../database/connect.php");
 
+//セッションスタート
+session_start();
+
 //タスクを新規追加
 if (isset($_POST["add"])) {
     $task_name = $_POST["task_name"];
@@ -15,14 +18,16 @@ if (isset($_POST["add"])) {
 
     //バリデーションチェック
     if (empty($task_name)) {
-        $error_message["task_name"] = "タスク名を入力してください。";
+        // $error_message["task_name"] = "タスク名を入力してください。";
+        $_SESSION["error_message"]["task_name"] = "タスク名を入力してください。";
     }
 
     if (empty($due_date)) {
-        $error_message["due_date"] = "タスクの期限を入力してください。";
+        // $error_message["due_date"] = "タスクの期限を入力してください。";
+        $_SESSION["error_message"]["due_date"] = "タスクの期限を入力してください。";
     }
 
-    if (empty($error_message)) {
+    if (empty($_SESSION["error_message"])) {
         $sql = "INSERT INTO tasks (task_name, due_date, is_done) VALUES(:task_name, :due_date, :is_done)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':task_name', $task_name);

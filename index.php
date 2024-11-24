@@ -3,6 +3,9 @@
 include_once("./app/database/connect.php");
 
 include("./app/functions/task_get.php");
+
+//セッションスタート
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -20,6 +23,8 @@ include("./app/functions/task_get.php");
 
     <!-- エラーメッセージがあれば表示 -->
     <?php include("./parts/validation.php") ?>
+
+    <?php unset($_SESSION["error_message"]) ?>
 
     <main>
         <div class="container">

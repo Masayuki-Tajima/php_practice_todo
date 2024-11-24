@@ -1,6 +1,6 @@
-<?php if(isset($error_message)): ?>
+<?php if(isset($_SESSION["error_message"])): ?>
     <ul>
-        <?php foreach($error_message as $error): ?>
+        <?php foreach($_SESSION["error_message"] as $error): ?>
             <li><?= $error ?></li>
         <?php endforeach ?>
     </ul>

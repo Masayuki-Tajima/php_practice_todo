@@ -31,11 +31,8 @@ try {
 </head>
 
 <body>
-    <header>
-        <div class="header_left">
-            <h1>TODOリスト</h1>
-        </div>
-    </header>
+    <!-- ヘッダーを読み込み -->
+    <?php include("./parts/header.php") ?>
 
     <main>
         <div class="container">

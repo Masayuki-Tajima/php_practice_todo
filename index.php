@@ -45,7 +45,7 @@ session_start();
                 <form action="./app/functions/create.php" method="post">
                     <input type="text" name="task_name">
                     <input type="datetime-local" name="due_date">
-                    <input type="submit" name="add" value="追加" class="button">
+                    <input type="submit" name="add" value="追加" class="button add">
                 </form>
             </div>
 

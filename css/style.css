@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
-.button{
-    color: blue;
+.add{
+    background-color: #3366FF;
+    color: white;
 }

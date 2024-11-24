@@ -2,23 +2,32 @@
 try {
     include_once("./app/database/connect.php");
 
-    // フォームから送信された内容を取得
     $task_array = array();
 
-    $sql = "SELECT * FROM tasks";
+    //タスクを新規追加
+    if (isset($_POST["add"])) {
+        $task_name = $_POST["task_name"];
+        $due_date = $_POST["due_date"];
+        $is_done = 0;
+
+        $sql = "INSERT INTO tasks (task_name, due_date, is_done) VALUES(:task_name, :due_date, :is_done)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':task_name', $task_name);
+        $stmt->bindParam(':due_date', $due_date);
+        $stmt->bindParam(':is_done', $is_done);
+
+        $stmt->execute();
+    }
+
+    // 未完了のタスク一覧を取得
+    $sql = "SELECT * FROM tasks WHERE is_done = 0";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $task_array = $stmt;
-
-    // var_dump($task_array->fetchAll());
 } catch (PDOException $e) {
     echo "データベースに接続できませんでした。" . $e->getMessage();
 }
 
-// if (isset($_POST["add"])) {
-//     $task_name = $_POST["task_name"];
-//     echo $task_name;
-// }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -31,17 +40,13 @@ try {
 </head>
 
 <body>
-    <header>
-        <div class="header_left">
-            <h1>TODOリスト</h1>
-        </div>
-    </header>
+    <!-- ヘッダーを読み込み -->
+    <?php include("./parts/header.php") ?>
 
     <main>
         <div class="container">
             <!-- タスクを追加する欄 -->
             <div class="task_add_area">
-                <h2>New Task</h2>
                 <form action="" method="post">
                     <input type="text" name="task_name">
                     <input type="datetime-local" name="due_date">
@@ -51,23 +56,37 @@ try {
 
             <!-- タスク一覧を表示するエリア -->
             <div class="task_list_area">
+                <h2>タスク一覧</h2>
                 <table>
                     <tr>
-                        <th>is_done</th>
                         <th>タスク</th>
-                        <th>日付</th>
-                        <th>ゴミ箱へ</th>
+                        <th>期限</th>
+                        <th>編集</th>
+                        <th>完了</th>
                     </tr>
                     <?php foreach ($task_array as $task): ?>
                         <tr>
-                            <td><?= $task["is_done"] ?></td>
                             <td><?= $task["task_name"] ?></td>
-                            <td><?= $task["due_date"] ?></td>
-                            <td>ボタン</td>
+                            <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
+                            <td>
+                                <form action="./app/pages/edit.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                                    <input type="submit" value="編集">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="./app/functions/delete.php" method="post">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                                    <input type="submit" name="delete" value="完了!">
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </table>
             </div>
+
+            <!-- ゴミ箱へ遷移するボタン -->
+            <button><a href="./app/pages/trash.php">ゴミ箱へ</a></button>
         </div>
     </main>
 </body>

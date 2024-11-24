@@ -8,6 +8,9 @@ if (isset($_POST["add"])) {
     $due_date = $_POST["due_date"];
     $is_done = 0;
 
+    // XSS対策
+    $task_name = htmlspecialchars($task_name, ENT_QUOTES, "UTF-8");
+
     $error_message = array();
 
     //バリデーションチェック

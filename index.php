@@ -19,7 +19,7 @@ try {
         $stmt->execute();
     }
 
-    // フォームから送信された内容を取得
+    // タスク一覧を取得
     $sql = "SELECT * FROM tasks";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -67,7 +67,7 @@ try {
                     <?php foreach ($task_array as $task): ?>
                         <tr>
                             <td><?= $task["task_name"] ?></td>
-                            <td><?= date("Y-m-d H:i", intval($task["due_date"])) ?></td>
+                            <td><?= date("Y-m-d H:i", strtotime($task["due_date"])) ?></td>
                             <td><?= $task["is_done"] ?></td>
                             <td>ボタン</td>
                         </tr>

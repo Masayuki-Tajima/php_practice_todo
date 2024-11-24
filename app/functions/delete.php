@@ -20,7 +20,6 @@ if (isset($_POST["delete"])) {
         $pdo->rollBack();
     }
 
-
     //index.htmlへ遷移
     header("Location: http://localhost:8080/php_practice_todo/index.php");
     exit();

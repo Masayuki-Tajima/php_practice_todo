@@ -4,21 +4,6 @@ try {
 
     $task_array = array();
 
-    //タスクを新規追加
-    if (isset($_POST["add"])) {
-        $task_name = $_POST["task_name"];
-        $due_date = $_POST["due_date"];
-        $is_done = 0;
-
-        $sql = "INSERT INTO tasks (task_name, due_date, is_done) VALUES(:task_name, :due_date, :is_done)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':task_name', $task_name);
-        $stmt->bindParam(':due_date', $due_date);
-        $stmt->bindParam(':is_done', $is_done);
-
-        $stmt->execute();
-    }
-
     // 未完了のタスク一覧を取得
     $sql = "SELECT * FROM tasks WHERE is_done = 0";
     $stmt = $pdo->prepare($sql);
@@ -47,7 +32,7 @@ try {
         <div class="container">
             <!-- タスクを追加する欄 -->
             <div class="task_add_area">
-                <form action="" method="post">
+                <form action="./app/functions/create.php" method="post">
                     <input type="text" name="task_name">
                     <input type="datetime-local" name="due_date">
                     <input type="submit" name="add" value="追加" class="button">

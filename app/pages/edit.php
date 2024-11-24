@@ -32,7 +32,7 @@ try {
 
     <main>
         <div class="container">
-            <form action="" method="post">
+            <form action="../functions/update.php" method="post">
                 <?php foreach ($task_array as $task): ?>
                     <label for="task_name">タスク</label>
                     <input type="text" name="task_name" value="<?= $task["task_name"] ?>">
